@@ -11,9 +11,9 @@
         $correo = $_POST["correo"];
         $modulo= $_POST["modulo"];
         $asunto= $_POST["asunto"];
-        $desc= $_POST["desc"]."\n";
+        $desc= $_POST["desc"];
 
-        $duda ="\"$correo\";\"$modulo\";\"$asunto\";\"$desc\"";
+        $duda ="\"$correo\";\"$modulo\";\"$asunto\";\"$desc\";\n";
         $file = fopen("dudas.csv","a+");
         fwrite($file,$duda);
         fclose($file);
