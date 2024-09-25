@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dudas</title>
+</head>
+
+<body>
+    <header>
+        <h2>IES EL RINCON</h2>
+        <h1>Formulario de dudas</h1>
+
+    </header>
+    <div class="main">
+        <div class="formu">
+            <form action="./registra_dudas.php" method="post">
+
+                <table>
+                    <tr>
+                        <th colspan="2">Formulario</th>
+                    </tr>
+                    <tr>
+                        <td><label for="correo">Correo electrónico:</label></td>
+                        <td><input type="email" name="correo" id=""></td>
+                    </tr>
+                    <tr>
+                        <td><label for="modulo">Seleccione su modulo: </label></td>
+                        <td>
+                            <select name="modulo" id="">
+                                <option value="DSW">DSW</option>
+                                <option value="DEW">DEW</option>
+                                <option value="DPL">DPL</option>
+                                <option value="DOR">DOR</option>
+                                <option value="EMR">EMR</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="asunto">Asunto: </label></td>
+                        <td><input type="text" name="asunto"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="desc">Describa su duda: </label></td>
+                        <td><textarea name="desc" id="" placeholder="Introduce tu duda..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit" id="btn">Enviar</button></td>
+                    </tr>
+                </table>
+        </div>
+
+        </form>
+    </div>
+</body>
+
+</html>

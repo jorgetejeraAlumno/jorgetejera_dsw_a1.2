@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+}
+header{
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+table{
+    text-align: center;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+    height: 315px;
+    align-items: center;
+}
+
+.formu{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(179, 179, 179);
+    width: 40%;
+    height: 280px;
+    align-items: center;
+    border-radius: 10px;
+}
+
+form th{
+    font-size: larger;
+    font-weight: bold;
+}
+
+form td input{
+    width: 200px;
+}
+
+form td select{
+    width: 100%;
+    text-align: center;
+}
+
+form td textarea{
+    width: 200px;
+    height: 100px;
+}
+
+#btn{
+    width: 100px;
+    height: 40px;
+    color: black;
+    background-color: white;
+    text-align: center;
+}
