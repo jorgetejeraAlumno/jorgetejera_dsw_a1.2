@@ -51,14 +51,15 @@
 
     if ($_SERVER["REQUEST_METHOD"]==="POST") 
         {
-            $errores = [];
+            //$errores = [];
             //añadimos al array errores los errores si los hay
-           //if(is_null(validar_correo() and validar_asunto() and validar_desc() and validar_modulo()))
-            //{
-              //  $errores=[];
-          //  }else{
-          //      array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
-          //  }
+           if((validar_correo()==null and validar_asunto() and validar_desc() and validar_modulo()))
+            {
+                $errores=[];
+            }else{
+                $errores = [];
+                array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
+            }
             
             //Comprobamos si hay errores
             if(empty($errores)){
