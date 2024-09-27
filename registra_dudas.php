@@ -45,7 +45,11 @@
         {
             $errores = [];
             //añadimos al array errores los errores si los hay
-            array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
+            if(!is_null(validar_correo()and validar_asunto() and validar_desc() and validar_modulo()))
+            {
+                array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
+            }
+            
             //Comprobamos si hay errores
             if(empty($errores)){
 
