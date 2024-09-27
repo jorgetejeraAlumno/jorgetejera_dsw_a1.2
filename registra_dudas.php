@@ -15,6 +15,8 @@
             return "El correo es obligatorio";
         }elseif(!filter_var($_POST["correo"],FILTER_VALIDATE_EMAIL)){
             return  "Este mail es inválido";
+        }else{
+            return null;
         }
     }
     function validar_asunto(){
@@ -25,6 +27,8 @@
             return "El valor de este campo debe ser texto";
         }elseif(strlen($_POST["asunto"])>50) {
             return "El asunto es de maximo 50 caracteres. Usted ha puesto: ".strlen($_POST["asunto"]);
+        }else{
+            return null;
         }
     }
     function validar_desc(){
@@ -32,12 +36,16 @@
            return "La descripcion es obligatorio";
         }elseif(strlen($_POST["desc"])> 300) {
             return "El maximo de caracteres de la descripcion es de 300. Usted ha puesto: ".strlen($_POST["desc"]);
+        }else{
+            return null;
         }
     }
     function validar_modulo(){
         $daw2=array("DSW","DEW","EMR","DPL","DOR");
         if(!in_array($_POST["modulo"], $daw2)) {
             return "La duda debe ser sobre una asignatura de segundo. ".$_POST["modulo"]." es de primero";
+        }else{
+            return null;
         }
     }
 
@@ -45,10 +53,12 @@
         {
             $errores = [];
             //añadimos al array errores los errores si los hay
-            if(!is_null(validar_correo()and validar_asunto() and validar_desc() and validar_modulo()))
-            {
-                array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
-            }
+           //if(is_null(validar_correo() and validar_asunto() and validar_desc() and validar_modulo()))
+            //{
+              //  $errores=[];
+          //  }else{
+          //      array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
+          //  }
             
             //Comprobamos si hay errores
             if(empty($errores)){
