@@ -10,42 +10,44 @@
     
 <div class="resp">
     <?php
-    $resp1="";
-    $resp2="";
-    $daw2=array("DSW","DEW","EMR","DPL","DOR");
+    function validar_correo(){
+        if(empty($_POST["correo"])) {
+            return "El correo es obligatorio";
+        }elseif(!filter_var($_POST["correo"],FILTER_VALIDATE_EMAIL)){
+            return  "Este mail es inválido";
+        }
+    }
+    function validar_asunto(){
+        if(empty($_POST["asunto"])) {
+           return  "El asunto es obligatorio";
+        }elseif(is_numeric($_POST["asunto"]))
+        {
+            return "El valor de este campo debe ser texto";
+        }elseif(strlen($_POST["asunto"])>50) {
+            return "El asunto es de maximo 50 caracteres. Usted ha puesto: ".strlen($_POST["asunto"]);
+        }
+    }
+    function validar_desc(){
+        if(empty($_POST["desc"])) {
+           return "La descripcion es obligatorio";
+        }elseif(strlen($_POST["desc"])> 300) {
+            return "El maximo de caracteres de la descripcion es de 300. Usted ha puesto: ".strlen($_POST["desc"]);
+        }
+    }
+    function validar_modulo(){
+        $daw2=array("DSW","DEW","EMR","DPL","DOR");
+        if(!in_array($_POST["modulo"], $daw2)) {
+            return "La duda debe ser sobre una asignatura de segundo. ".$_POST["modulo"]." es de primero";
+        }
+    }
+
     if ($_SERVER["REQUEST_METHOD"]==="POST") 
         {
             $errores = [];
-            //Validamos el correo
-            if(empty($_POST["correo"])) {
-                $errores[] = "El correo es obligatorio";
-            }elseif(!filter_var($_POST["correo"],FILTER_VALIDATE_EMAIL)){
-                $errores[] = "Este mail es inválido";
-            }
-            //Validamos el asunto
-            if(empty($_POST["asunto"])) {
-                $errores[] = "El asunto es obligatorio";
-            }elseif(is_numeric($_POST["asunto"]))
-            {
-                $errores[] = "El valor de este campo debe ser texto";
-            }elseif(strlen($_POST["asunto"])>50) {
-                $errores[] = "El asunto es de maximo 50 caracteres. Usted ha puesto: ".strlen($_POST["asunto"]);
-            }
-            // Validamos la describcion
-            if(empty($_POST["desc"])) {
-                $errores[] = "La descripcion es obligatorio";
-            }elseif(strlen($_POST["desc"])> 300) {
-                $errores[] = "El maximo de caracteres de la descripcion es de 300. Usted ha puesto: ".strlen($_POST["desc"]);
-            }
-
-            //Comprobamos que el asunto pertenece al array DAW2
-            if(!in_array($_POST["modulo"], $daw2)) {
-                $errores[] = "La duda debe ser sobre una asignatura de segundo. ".$_POST["modulo"]." es de primero";
-            }
+            //añadimos al array errores los errores si los hay
+            array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
             //Comprobamos si hay errores
             if(empty($errores)){
-                $resp1="Completado";
-                $resp2="Su duda se ha registrado con exito";
 
                 //Guardamos en variables los campos
                 $correo = $_POST["correo"];
@@ -60,11 +62,11 @@
                 $file = fopen("dudas.csv","a+");
                 fwrite($file,$duda);
                 fclose($file);
-                echo"<h1>".$resp1."</h1>";
-                echo "<p>".$resp2."</p>";
+                echo"<h1>"."Completado"."</h1>";
+                echo "<p>"."Su duda se ha registrado con exito"."</p>";
             }else{
-                $resp1="<h2>"."Errores:"."</h2>";
-                echo $resp1;
+                echo"<h1>"."Proceso no completado"."</h1>";
+                echo"<h2>"."Listado de errores: "."</h2>";
                 foreach($errores as $error) {
                     echo"<br>".$error."<br>";
                 }
