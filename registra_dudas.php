@@ -10,57 +10,52 @@
     
 <div class="resp">
     <?php
-    function validar_correo(){
+    $errores=[];
+        function validar_correo(){
+            global $errores;
         if(empty($_POST["correo"])) {
-            return "El correo es obligatorio";
+            
+            array_push($errores,"El correo es obligatorio");
         }elseif(!filter_var($_POST["correo"],FILTER_VALIDATE_EMAIL)){
-            return  "Este mail es inválido";
-        }else{
-            return null;
+            array_push($errores,"Este mail es inválido");
         }
     }
     function validar_asunto(){
+        global $errores;
         if(empty($_POST["asunto"])) {
-           return  "El asunto es obligatorio";
+            array_push($errores,"El asunto es obligatorio");
         }elseif(is_numeric($_POST["asunto"]))
         {
-            return "El valor de este campo debe ser texto";
+            array_push($errores,"El valor de este campo debe ser texto");
         }elseif(strlen($_POST["asunto"])>50) {
-            return "El asunto es de maximo 50 caracteres. Usted ha puesto: ".strlen($_POST["asunto"]);
-        }else{
-            return null;
+            array_push($errores,"El asunto es de maximo 50 caracteres. Usted ha puesto: ".strlen($_POST["asunto"]));
         }
     }
     function validar_desc(){
+        global $errores;
         if(empty($_POST["desc"])) {
-           return "La descripcion es obligatorio";
+            array_push($errores,"La descripcion es obligatorio");
         }elseif(strlen($_POST["desc"])> 300) {
-            return "El maximo de caracteres de la descripcion es de 300. Usted ha puesto: ".strlen($_POST["desc"]);
-        }else{
-            return null;
+            array_push($errores,"El maximo de caracteres de la descripcion es de 300. Usted ha puesto: ".strlen($_POST["desc"]));
         }
     }
     function validar_modulo(){
+        global $errores;
         $daw2=array("DSW","DEW","EMR","DPL","DOR");
         if(!in_array($_POST["modulo"], $daw2)) {
-            return "La duda debe ser sobre una asignatura de segundo. ".$_POST["modulo"]." es de primero";
-        }else{
-            return null;
+            array_push($errores,"La duda debe ser sobre una asignatura de segundo. ".$_POST["modulo"]." es de primero");
         }
     }
 
+
+
     if ($_SERVER["REQUEST_METHOD"]==="POST") 
         {
-            //$errores = [];
-            //añadimos al array errores los errores si los hay
-           if((validar_correo()==null and validar_asunto() and validar_desc() and validar_modulo()))
-            {
-                $errores=[];
-            }else{
-                $errores = [];
-                array_push(($errores),validar_correo(),validar_asunto(),validar_desc(),validar_modulo());
-            }
-            
+            global $errores;
+            validar_correo();
+            validar_asunto();
+            validar_modulo();
+            validar_desc();
             //Comprobamos si hay errores
             if(empty($errores)){
 
