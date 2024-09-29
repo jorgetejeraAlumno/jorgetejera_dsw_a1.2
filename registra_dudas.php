@@ -46,8 +46,27 @@
             array_push($errores,"La duda debe ser sobre una asignatura de segundo. ".$_POST["modulo"]." es de primero");
         }
     }
+    function comprobar_tema(){
+        // $temas=array($_POST["linux"],$_POST["windows"],$_POST["php"],$_POST["html"],$_POST["calificaciones"],
+        $_POST["notas"],$_POST["examenes"],$_POST["otros"],);
 
+        for($x = 0; $x <= count($temas);$x++){
+            if(is_null($temas[$x])){
+                unset($temas[$x]);
+            }
+        }
+        $temas = array_values($temas);
+        return $temas;
+    }
 
+    function validar_tema($temas){
+        global $errores;
+        if(count($temas)< 0 and count($errores)> 3){
+            array_push($errores,"El numero de temas elegido no es correcto. Debe elegir entre 1 y 3");
+        }
+
+            
+    }
 
     if ($_SERVER["REQUEST_METHOD"]==="POST") 
         {
@@ -56,6 +75,8 @@
             validar_asunto();
             validar_modulo();
             validar_desc();
+            comprobar_tema();
+            validar_tema(comprobar_tema());
             //Comprobamos si hay errores
             if(empty($errores)){
 
@@ -64,9 +85,16 @@
                 $modulo= $_POST["modulo"];
                 $asunto= $_POST["asunto"];
                 $desc= $_POST["desc"];
+                $temas=comprobar_tema();
 
                 //Los guardamos en un array
-                $duda ="\"$correo\";\"$modulo\";\"$asunto\";\"$desc\"\n";
+                $duda ="\"$correo\";\"$modulo\";\"$asunto\";\"$desc\;";
+
+                for($x=0; $x <= count($temas);$x++){
+                    $duda.=$temas[$x].";";
+                }
+
+                $duda.="\n";
 
                 //Lo escribimos en el csv
                 $file = fopen("dudas.csv","a+");
@@ -87,6 +115,5 @@
     
         <a href="./index.html"><button>Nueva duda</button></a>
     </div>
-     
 </body>
 </html>

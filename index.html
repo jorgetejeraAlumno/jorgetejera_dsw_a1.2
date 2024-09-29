@@ -18,7 +18,7 @@
         <div class="formu">
             <form action="./registra_dudas.php" method="post">
 
-                <table>
+                <table border="1px solid">
                     <tr>
                         <th colspan="2">Formulario</th>
                     </tr>
@@ -44,6 +44,37 @@
                                 <option value="SSF">SSF</option>
                             </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><label for="tema">Temas: </label></td>
+                        <td class="temas">
+                            <label for="linux">Linux </label>
+                            <input type="checkbox" name="opciones[]" value="linux">
+                            <label for="windows">Windows </label>
+                            <input type="checkbox" name="opciones[]" value="windows">
+                            <label for="php">PHP </label>
+                            <input type="checkbox" name="opciones[]" value="php">
+                        </td>
+                        <tr>
+                            <td class="temas">
+                                <label for="html">HTML </label>
+                                <input type="checkbox" name="html" value="html">
+                                <label for="javascript">JavaScript</label>
+                                <input type="checkbox" name="javascript" value="javascript">
+                                <label for="calificaciones">Calificaciones</label>
+                                <input type="checkbox" name="calificaciones" value="calificaciones">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="temas">
+                                <label for="notas">Notas </label>
+                                <input type="checkbox" name="notas" value="notas">
+                                <label for="examenes">Examenes </label>
+                                <input type="checkbox" name="examenes" value="examenes">
+                                <label for="otros">Otros... </label>
+                                <input type="checkbox" name="otros" value="otros">
+                            </td>
+                        </tr>
                     </tr>
                     <tr>
                         <td><label for="asunto">Asunto: </label></td>

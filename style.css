@@ -13,8 +13,8 @@ table{
 .main{
     display: flex;
     justify-content: center;
-    margin: 30px;
-    height: 315px;
+    margin-top: 7%;
+    height: 400px;
     align-items: center;
 }
 
@@ -22,8 +22,8 @@ table{
     display: flex;
     justify-content: center;
     background-color: rgb(179, 179, 179);
-    width: 40%;
-    height: 280px;
+    width: max-content;
+    height: max-content;
     align-items: center;
     border-radius: 10px;
 }
@@ -35,6 +35,11 @@ form th{
 
 form td input{
     width: 200px;
+}
+
+form tr td label{
+    display: contents;
+    width: 100px;
 }
 
 form td select{
@@ -59,4 +64,10 @@ form td textarea{
     text-align: center;
     font-size: larger;
     
+}
+
+.temas{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
