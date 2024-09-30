@@ -47,36 +47,31 @@
         }
     }
     function comprobar_tema(){
-        // $temas=array($_POST["linux"],$_POST["windows"],$_POST["php"],$_POST["html"],$_POST["calificaciones"],
-        $_POST["notas"],$_POST["examenes"],$_POST["otros"],);
-
-        for($x = 0; $x <= count($temas);$x++){
-            if(is_null($temas[$x])){
-                unset($temas[$x]);
-            }
-        }
-        $temas = array_values($temas);
-        return $temas;
-    }
-
-    function validar_tema($temas){
+        $temas = [];
         global $errores;
-        if(count($temas)< 0 and count($errores)> 3){
-            array_push($errores,"El numero de temas elegido no es correcto. Debe elegir entre 1 y 3");
+        if(isset($_POST['opciones'])){
+           for( $i= 0; $i<count($_POST['opciones']);$i++)
+           {
+            array_push($temas, $_POST['opciones'][$i]);
+           }
+           if(count($temas)> 3){
+            array_push($errores,'Como muchos puedes elegir 3 tremas. Has elegido '.count($_POST['opciones']));
+           }
+        }else{
+            array_push($errores,"Debejes elegir al menos un tema");
         }
-
-            
     }
+
 
     if ($_SERVER["REQUEST_METHOD"]==="POST") 
-        {
+        { 
             global $errores;
+            global $opciones;
             validar_correo();
             validar_asunto();
             validar_modulo();
             validar_desc();
             comprobar_tema();
-            validar_tema(comprobar_tema());
             //Comprobamos si hay errores
             if(empty($errores)){
 
@@ -85,16 +80,16 @@
                 $modulo= $_POST["modulo"];
                 $asunto= $_POST["asunto"];
                 $desc= $_POST["desc"];
-                $temas=comprobar_tema();
-
-                //Los guardamos en un array
-                $duda ="\"$correo\";\"$modulo\";\"$asunto\";\"$desc\;";
-
-                for($x=0; $x <= count($temas);$x++){
-                    $duda.=$temas[$x].";";
+                $tema_str='';
+                for ($i= 0;$i< count($_POST['opciones']);$i++){
+                    $tema_str.=$_POST['opciones'][$i].";";
                 }
 
-                $duda.="\n";
+
+                //Los guardamos en un array
+                $duda ="\"$correo\";\"$modulo\";\"$asunto\";\"$desc\;\"$tema_str\n";
+
+
 
                 //Lo escribimos en el csv
                 $file = fopen("dudas.csv","a+");
